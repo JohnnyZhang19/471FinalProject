@@ -31,3 +31,26 @@ def register(request):
         return render(request, "project/register.html",{'formobj': form_obj})
 
 
+def login(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        #use auth check user
+        user = auth.authenticate(username = username, password = password)
+
+        if user:
+            auth.login(request, user)
+
+            # jump to main page
+            return redirect("/")
+        else:
+            return render(request, "project/login.html", {'error': "username or password is incorrect!"})
+    else:
+        return render(request, "project/login.html")
+
+
+def logout(request):
+    auth.logout(request)
+
+    return redirect("/")

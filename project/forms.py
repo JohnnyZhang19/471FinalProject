@@ -13,7 +13,7 @@ class reg_form(forms.Form):
             "required": "username cannot be empty"
         },
         widget=forms.widgets.TextInput(
-            attrs={'class': "form-control"}
+            attrs={'class': "form-control"},
         )
     )
 
@@ -22,12 +22,12 @@ class reg_form(forms.Form):
         max_length=20,
         label="password",
         error_messages={
-            "max_length": "password must in 20 character",
+            "min_length": "password must larger than 6 character",
             "required": "password cannot be empty"
         },
         # let the input type to password as *
         widget=forms.widgets.PasswordInput(
-            attrs={'class': "form-control"}
+            attrs={'class': "form-control"},
         )
     )
 
@@ -35,12 +35,12 @@ class reg_form(forms.Form):
         max_length=20,
         label="confirm",
         error_messages={
-            "max_length": "password must in 20 character",
+            "min_length": "password must larger than character",
             "required": "password cannot be empty"
         },
         # let the input type to password as *
         widget=forms.widgets.PasswordInput(
-            attrs={'class': "form-control"}
+            attrs={'class': "form-control"},
         )
     )
 
@@ -50,9 +50,9 @@ class reg_form(forms.Form):
         error_messages={
             "max_length": "nickname must in 20 character"
         },
-        initial=username,
+        # initial=username,
         widget=forms.widgets.TextInput(
-            attrs={'class': "form-control"}
+            attrs={'class': "form-control"},
         )
     )
 
@@ -63,7 +63,7 @@ class reg_form(forms.Form):
             "required": "email cannot be empty"
         },
         widget = forms.widgets.EmailInput(
-            attrs={'class': "form-control"}
+            attrs={'class': "form-control"},
         )
     )
 
@@ -74,14 +74,14 @@ class reg_form(forms.Form):
             'max_length': "telephone number must be 11 character"
         },
         widget = forms.widgets.TextInput(
-            attrs={'class': "form-control"}
+            attrs={'class': "form-control"},
         )
     )
 
-    profile_image = forms.ImageField(
-        label="profile image",
+    profile_photo = forms.ImageField(
+        label="profile photo",
         widget=forms.widgets.FileInput(
-            attrs={'style': "display:none"}
+            attrs={'style': "display:none"},
         )
 
     )
