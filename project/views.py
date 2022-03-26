@@ -1,9 +1,15 @@
 from django.contrib.auth.models import auth
 from django.shortcuts import render, redirect
+from django.views.generic import ListView
 
 from . import forms
 from . import models
 
+#ListView DetailView TemplateView
+class homepageView(ListView):
+    model = models.Bloginfo
+    template_name = 'project/homepage.html'
+    context_object_name = "blog_list"
 
 def register(request):
     if request.method == 'POST':
@@ -37,7 +43,7 @@ def login(request):
         password = request.POST.get('password')
 
         #use auth check user
-        user = auth.authenticate(username = username, password = password)
+        user = auth.authenticate(username=username, password=password)
 
         if user:
             auth.login(request, user)

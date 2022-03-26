@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'project',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -135,3 +137,43 @@ AUTH_USER_MODEL = 'project.RegisterUser'
 MEDIA_URL = "/media/"
 # 媒体文件实际存放路径 blog_demo/media/
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+# ckeditor info
+# 文件上传的url 与MEDIA_ROOT组合成 /media/uploads/
+CKEDITOR_UPLOAD_PATH = "uploads/"
+# 图片处理、生成缩略图是使用的引擎，pillow
+CKEDITOR_IMAGE_BACKEND = 'pillow'
+# 以下内容非必选
+# 在编辑器里浏览上传图片时，图片会以路径分组、以日期排序
+CKEDITOR_BROWSE_SHOW_DIRS = True
+# 禁用非图片文件上传
+CKEDITOR_ALLOW_NONIMAGE_FILES = False
+# 限制用户浏览图片的权限，只能浏览自己上传的图片
+CKEDITOR_RESTRICT_BY_USER = True
+# 定义ckeditor，使用的按钮等
+CKEDITOR_CONFIGS = {
+    'default': {
+        'language': 'zh-cn',
+        'width': '960px',
+        'height': '300px',
+        'toolbar': (
+            ['div', '-', 'Save', 'NewPage', 'Preview', '-', 'Templates'],
+            ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Print', 'SpellChecker', 'Scayt'],
+            ['Undo', 'Redo', '-', 'Find', 'Replace', '-', 'SelectAll', 'RemoveFormat'],
+            ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'],
+            ['Bold', 'Italic', 'Underline', 'Strike', '-', 'Subscript', 'Superscript'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', 'Blockquote'],
+            ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink', 'Anchor'],
+            ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak'],
+            ['Styles', 'Format', 'Font', 'FontSize'],
+            ['TextColor', 'BGColor'],
+            ['Maximize', 'ShowBlocks', '-', 'About', 'pbckcode'],
+        ),
+    }
+}
+
+
+
+
+
