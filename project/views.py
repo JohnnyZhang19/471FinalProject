@@ -1,5 +1,5 @@
 from django.contrib.auth.models import auth
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
 
 from . import forms
@@ -10,6 +10,54 @@ class homepageView(ListView):
     model = models.Bloginfo
     template_name = 'project/homepage.html'
     context_object_name = "blog_list"
+
+class categoryView(ListView):
+    model = models.Bloginfo
+    template_name = 'project/category.html'
+    context_object_name = "blog_list"
+
+    #not all blogs, but category, like sql: where category='xxx'
+    def get_queryset(self):
+        category_id = self.kwargs.get('categoryid')
+        category = get_object_or_404(models.Category, pk=category_id)
+        return super(categoryView, self).get_queryset().filter(category=category).order_by("-created_time")
+
+    def get_context_data(self, **kwargs):
+        context = super(categoryView, self).get_context_data()
+        context['category'] = get_object_or_404(models.Category, pk=self.kwargs.get('categoryid'))
+        return context
+
+class tagView(ListView):
+    model = models.Bloginfo
+    template_name = 'project/tags.html'
+    context_object_name = "blog_list"
+
+    #not all blogs, but category, like sql: where category='xxx'
+    def get_queryset(self):
+        tag_id = self.kwargs.get('tagid')
+        tag = get_object_or_404(models.Tag, pk=tag_id)
+        return super(tagView, self).get_queryset().filter(tags=tag).order_by("-created_time")
+
+    def get_context_data(self, **kwargs):
+        context = super(tagView, self).get_context_data()
+        context['tags'] = get_object_or_404(models.Tag, pk=self.kwargs.get('tagid'))
+        return context
+
+class authorPage(ListView):
+    model = models.Bloginfo
+    template_name = 'project/authorPage.html'
+    context_object_name = "blog_list"
+
+    #not all blogs, but category, like sql: where category='xxx'
+    def get_queryset(self):
+        author_id = self.kwargs.get('userid')
+        author = get_object_or_404(models.RegisterUser, pk=author_id)
+        return super(authorPage, self).get_queryset().filter(author=author).order_by("-created_time")
+
+    def get_context_data(self, **kwargs):
+        context = super(authorPage, self).get_context_data()
+        context['author'] = get_object_or_404(models.RegisterUser, pk=self.kwargs.get('userid'))
+        return context
 
 def register(request):
     if request.method == 'POST':
@@ -60,3 +108,10 @@ def logout(request):
     auth.logout(request)
 
     return redirect("/")
+
+def archives(request, month, year):
+    #archive blogs count
+
+    blog_list = models.Bloginfo.objects.filter(created_time__month=month,
+                                               created_time__year=year).order_by("-created_time")
+    return render(request, "project/archives.html", {'blog_list': blog_list, 'month': month, 'year': year})
