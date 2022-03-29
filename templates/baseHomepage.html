@@ -37,7 +37,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
           {% if request.user.username %}
-          <li><a href="#">{{ request.user.username }}</a></li>
+          <li><a href="{% url 'project:authorPage' request.user.id %}">{{ request.user.username }}</a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                aria-expanded="false">my account<span class="caret"></span></a>
@@ -68,7 +68,7 @@
           <div class="media">
             {% if not author %}
             <div class="media-left">
-              <a href="{% url 'project:authorPage' request.user.id %}">
+              <a href="{% url 'project:authorPage' blog.author.id %}">
                 <img class="media-object img-circle" src="/media/{{ blog.author.profile_photo }}" alt="click to blogger's page"
                 style="width: 80px;height: 80px;">
               </a>

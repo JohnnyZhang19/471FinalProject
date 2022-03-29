@@ -24,7 +24,7 @@ class Category(models.Model):
     #category name
     name = models.CharField(max_length=20, verbose_name="Category name")
     #category describe
-    describe = models.CharField(max_length=100, verbose_name="descitbe", null=True)
+    describe = models.CharField(max_length=100, verbose_name="describe", null=True)
 
     def __str__(self):
         return self.name
