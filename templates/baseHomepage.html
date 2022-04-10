@@ -25,7 +25,6 @@
         </button>
         <a class="navbar-brand" href="#">+ 5 pounds</a>
       </div>
-
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
@@ -58,41 +57,13 @@
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
   </nav>
-  <div class="content-body">
+  <div class="content-body" style="margin-bottom: 80px; ">
     <div class="container">
       <div class="row">
         <main class="col-md-8">
           {% block main %}
           {% endblock main %}
-          {% for blog in blog_list %}
-          <div class="media">
-            {% if not author %}
-            <div class="media-left">
-              <a href="{% url 'project:authorPage' blog.author.id %}">
-                <img class="media-object img-circle" src="/media/{{ blog.author.profile_photo }}" alt="click to blogger's page"
-                style="width: 80px;height: 80px;">
-              </a>
-            </div>
-            {% endif %}
-            <div class="media-body">
-              <h4 class="media-heading"><a href="#"> {{ blog.title }}</a></h4>
-              <p>{{ blog.excerpt|safe }}</p>
-              <div class="entry-meta">
-                <span class="blog-category"><a href="#">{{ blog.category.name }}</a> </span>
-                <span class="blog-date">
-                  <a href="#"><time class="entry-date" datetime="{{ blog.created_time }}">
-                    {{ blog.created_time }}</time>
-                  </a>
-                </span>
-                <span class="blog-author"><a href="#">{{ blog.author.nickname }}</a> </span>
-                <span class="comments-link"><a href="#">comments</a> </span>
-                <span class="views-count"><a href="#">{{ blog.views }}</a> </span>
-              </div>
-            </div>
-          </div>
-          {% empty %}
-          <p>No blog yet!</p>
-          {% endfor %}
+
         </main>
         <aside class="col-md-4">
           {% if author %}
@@ -112,7 +83,7 @@
               {% get_newest_blogs as new_blog_list %}
               <ul>
                 {% for blog in new_blog_list %}
-                <li><a href="#">{{ blog.title }}</a> </li>
+                <li><a href="{% url 'project:blogDetail' blog.id %}">{{ blog.title }}</a> </li>
                 {% empty %}
                 No blog post yet
                 {% endfor %}

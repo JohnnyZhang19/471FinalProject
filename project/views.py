@@ -1,6 +1,6 @@
 from django.contrib.auth.models import auth
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 from . import forms
 from . import models
@@ -58,6 +58,18 @@ class authorPage(ListView):
         context = super(authorPage, self).get_context_data()
         context['author'] = get_object_or_404(models.RegisterUser, pk=self.kwargs.get('userid'))
         return context
+
+class blogDetail(DetailView):
+    model = models.Bloginfo
+    template_name = 'project/blogDetail.html'
+    context_object_name = "blog"
+    pk_url_kwarg = 'blogid'
+
+    def get_object(self, queryset=None):
+        blog = super(blogDetail, self).get_object(queryset=None)
+        blog.add_one_view()
+        return blog
+
 
 def register(request):
     if request.method == 'POST':

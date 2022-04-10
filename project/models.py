@@ -79,6 +79,10 @@ class Bloginfo(models.Model):
     def __str__(self):
         return self.title
 
+    def add_one_view(self):
+        self.views += 1
+        self.save(update_fields=['views'])
+
     def save(self, *args, **kwargs):
         if not self.excerpt:
             self.excerpt = strip_tags(self.body)[:100]
