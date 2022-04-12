@@ -6,7 +6,9 @@ urlpatterns = [
     #user register url
     path("register/", views.register, name='register'),
     path("login/", views.login, name='login'),
+    path("login_ajax/", views.login_ajax),
     path("logout/", views.logout, name='logout'),
+    path("likes/", views.likes),
     path("", views.homepageView.as_view(), name='homepage'),
     re_path('archives/(?P<month>[0-9]{1,2})/(?P<year>[0-9]{4})/', views.archives, name='archives'),
     re_path('category/(?P<categoryid>[0-9]+)/', views.categoryView.as_view(), name='category'),

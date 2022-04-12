@@ -1,4 +1,5 @@
 from django.contrib.auth.models import auth
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView
 
@@ -157,6 +158,28 @@ def login(request):
     else:
         return render(request, "project/login.html")
 
+def login_ajax(request):
+    ret = {
+        "code": 0,
+        "message": "ok"
+    }
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        #use auth check user
+        user = auth.authenticate(username=username, password=password)
+
+        if user:
+            auth.login(request, user)
+        else:
+            ret['code'] = 999
+            ret['message'] = "username or password is incorrect!"
+    else:
+        ret['code'] = -1
+        ret['message'] = "illegal request."
+
+    return JsonResponse(ret)
 
 def logout(request):
     auth.logout(request)
@@ -169,3 +192,17 @@ def archives(request, month, year):
     blog_list = models.Bloginfo.objects.filter(created_time__month=month,
                                                created_time__year=year).order_by("-created_time")
     return render(request, "project/archives.html", {'blog_list': blog_list, 'month': month, 'year': year})
+
+
+def likes(request):
+    ret = {'code': 0, 'message': 'ok'}
+
+    blogid = request.GET.get('blogid')
+
+    project = models.Bloginfo.objects.get(id=blogid)
+    if project:
+        # likes add one
+        project.add_one_like()
+
+
+    return JsonResponse(ret)

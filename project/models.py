@@ -77,6 +77,8 @@ class Bloginfo(models.Model):
     #viewd times
     views = models.IntegerField(default=0, verbose_name="views")
 
+    likes = models.IntegerField(default=0, verbose_name="likes")
+
     def __str__(self):
         return self.title
 
@@ -86,6 +88,10 @@ class Bloginfo(models.Model):
     def add_one_view(self):
         self.views += 1
         self.save(update_fields=['views'])
+
+    def add_one_like(self):
+        self.views += 1
+        self.save(update_fields=['likes'])
 
     def save(self, *args, **kwargs):
         if not self.excerpt:

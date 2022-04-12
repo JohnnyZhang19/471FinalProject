@@ -22,9 +22,9 @@ def do_comments(request, blogid):
             return redirect(blog)
         else:
             context = {
-                "projectproject": blog,
+                "project": blog,
                 'form': formobj,
             }
-            return render(request, 'projectproject/blogDetail.html', context=context)
+            return render(request, 'project/blogDetail.html', context=context)
     else:
         return redirect(blog)
