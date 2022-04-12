@@ -23,4 +23,51 @@
     {{ blog.body|safe }}
   </div>
 </article>
+<section>
+  {% if request.user.username %}
+  <h4>Comments</h4>
+  <hr>
+  <form action="{% url 'comments:blogComment' blog.id %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label class="col-md-2">nickname</label>
+      {{ request.user.nickname }}
+    </div>
+    <div class="form-group">
+      <label class="col-md-2">email</label>
+      {{ request.user.email }}
+    </div>
+    <div class="form-group">
+      <label class="col-md-2">Comments</label>
+      <div class="col-md-offset-2">
+        {{ form.text }}
+        {{ form.text.error.0 }}
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-offset-2">
+        <button type="submit" class="btn btn-primary">post</button>
+      </div>
+    </div>
+  </form>
+  {% endif %}
+  <div class="panel panel-default">
+    <div class="page-header">
+      <h5>{{ comment_list | length }} comments</h5>
+    </div>
+    <div class="panel-body">
+      <ul class="comment-list list-unstyled">
+        {% for comment in comment_list %}
+        <li>
+          <span style="color:#666; font-size: 14px;">{{ comment.name }}&nbsp;&nbsp;</span>
+          <time style="color:#666; font-size: 14px;">{{ comment.created_time }}</time>
+          <div style="padding: 8px; font-size: 16px;">{{ comment.text }}</div>
+        </li>
+        {% empty %}
+        No comment, Be the first!
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
 {% endblock main %}

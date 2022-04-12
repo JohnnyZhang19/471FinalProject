@@ -4,6 +4,7 @@ from django.views.generic import ListView, DetailView
 
 from . import forms
 from . import models
+from comments .forms import CommentForm
 
 #ListView DetailView TemplateView
 class homepageView(ListView):
@@ -69,6 +70,16 @@ class blogDetail(DetailView):
         blog = super(blogDetail, self).get_object(queryset=None)
         blog.add_one_view()
         return blog
+
+    def get_context_data(self, **kwargs):
+        context = super(blogDetail, self).get_context_data()
+        form = CommentForm()
+
+        context['form'] = form
+        comments_list = self.object.comment_set.all()
+        context['comment_list'] = comments_list
+        return context
+
 
 
 def register(request):

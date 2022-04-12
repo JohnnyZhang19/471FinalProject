@@ -1,0 +1,35 @@
+{% extends 'baseHomepage.html' %}
+{% load highlight %}
+{% block main %}
+{% if query %}
+{% for result in page.object_list %}
+<article class="project">
+  <header class="entry-header">
+    <h2 class="entry-title">{% highlight result.object.title with query %}</h2>
+    <div class="entry-meta-detail">
+      <span class="blog-category">
+        <a href="{% url 'project:category' result.object.category.id %}">{{result.object.category.name}}</a>
+      </span>
+      <span class="blog-date">
+        <a href="#">{{result.object.created_time}}</a>
+      </span>
+      <span class="blog-author">
+        <a href="{% url 'project:authorPage' result.object.author.id %}">{{result.object.author.nickname}}</a>
+      </span>
+      <span class="views-count">
+        <a href="#">{{result.object.views}} views</a>
+      </span>
+
+    </div>
+  </header>
+  <div class="entry-content clearfix">
+      <p>{% highlight result.object.body with query %}</p>
+  </div>
+</article>
+{% empty %}
+<div class="no-blog">No result!</div>
+{% endfor %}
+{% else %}
+Please enter the keywords
+{% endif %}
+{% endblock main %}

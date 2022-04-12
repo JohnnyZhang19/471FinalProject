@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.urls import reverse
 from django.utils.html import strip_tags
 
 
@@ -30,7 +31,7 @@ class Category(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = "blog category form"
+        verbose_name = "project category form"
         verbose_name_plural = verbose_name
 
 class Tag(models.Model):
@@ -43,15 +44,15 @@ class Tag(models.Model):
         return self.name + "(" + self.describe + ")"
 
     class Meta:
-        verbose_name = "blog tag form"
+        verbose_name = "project tag form"
         verbose_name_plural = verbose_name
 
 class Bloginfo(models.Model):
     #Blog title
-    title = models.CharField(max_length=50, verbose_name="blog title")
+    title = models.CharField(max_length=50, verbose_name="project title")
 
-    #blog body
-    body = RichTextUploadingField(verbose_name="blog body")
+    #project body
+    body = RichTextUploadingField(verbose_name="project body")
 
     #create time
     created_time = models.DateTimeField(verbose_name="created time")
@@ -60,15 +61,15 @@ class Bloginfo(models.Model):
     modified_time = models.DateTimeField(verbose_name="last modified time")
 
     #excerpt
-    excerpt = models.CharField(max_length=200, blank=True, verbose_name="blog excerpt")
+    excerpt = models.CharField(max_length=200, blank=True, verbose_name="project excerpt")
 
     #category
     #1 to n relation
-    #on_delete CASECADA means, when delete category, all the relation blog will be delete too
+    #on_delete CASECADA means, when delete category, all the relation project will be delete too
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="category")
 
     #tag
-    tags = models.ManyToManyField(Tag, blank=True, verbose_name="blog tags")
+    tags = models.ManyToManyField(Tag, blank=True, verbose_name="project tags")
 
     #author
     author = models.ForeignKey(RegisterUser, on_delete=models.CASCADE, verbose_name="author")
@@ -79,6 +80,9 @@ class Bloginfo(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse("project:blogDetail", kwargs={'blogid': self.id})
+
     def add_one_view(self):
         self.views += 1
         self.save(update_fields=['views'])
@@ -88,11 +92,11 @@ class Bloginfo(models.Model):
             self.excerpt = strip_tags(self.body)[:100]
 
         # call father's save
-        super(Bloginfo,self).save(*args, **kwargs)
+        super(Bloginfo, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ['-created_time']
-        verbose_name = "blog form"
+        verbose_name = "project form"
         verbose_name_plural = verbose_name
 
 

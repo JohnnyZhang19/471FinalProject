@@ -48,8 +48,8 @@ class Migration(migrations.Migration):
                 ('excerpt', models.CharField(blank=True, max_length=200, verbose_name='blog excerpt')),
                 ('views', models.IntegerField(default=0, verbose_name='views')),
                 ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='author')),
-                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='project.category', verbose_name='category')),
-                ('tags', models.ManyToManyField(blank=True, to='project.Tag', verbose_name='blog tags')),
+                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='blog.category', verbose_name='category')),
+                ('tags', models.ManyToManyField(blank=True, to='blog.Tag', verbose_name='blog tags')),
             ],
             options={
                 'verbose_name': 'blog form',

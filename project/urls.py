@@ -12,5 +12,5 @@ urlpatterns = [
     re_path('category/(?P<categoryid>[0-9]+)/', views.categoryView.as_view(), name='category'),
     re_path('tags/(?P<tagid>[0-9]+)/', views.tagView.as_view(), name='tags'),
     re_path('authorPage/(?P<userid>[0-9]+)/', views.authorPage.as_view(), name='authorPage'),
-    re_path('blogDetail/(?P<blogid>[0-9]+)/', views.blogDetail.as_view(), name='blogDetail')
+    re_path("blogDetail/(?P<blogid>[0-9]+)/", views.blogDetail.as_view(), name='blogDetail'),
 ]
