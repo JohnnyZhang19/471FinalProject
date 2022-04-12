@@ -32,10 +32,10 @@
 {% if page.has_previous or page.has_next %}
 <div style="text-align: center">
   {% if page.has_previous %}
-  <a class="btn btn-default" href="?q={{ query }}&amp;page={{ page.previous_page_number }}">last page</a>
+  <a class="btn btn-default" href="?q={{ query }}&amp;page={{ page.previous_page_number }}">previous</a>
   {% endif %}
   {% if page.has_next %}
-  <a class="btn btn-default" href="?q={{ query }}&amp;page={{ page.next_page_number }}">next page</a>
+  <a class="btn btn-default" href="?q={{ query }}&amp;page={{ page.next_page_number }}">next</a>
   {% endif %}
 </div>
 {% endif %}

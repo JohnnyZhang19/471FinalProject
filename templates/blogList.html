@@ -27,3 +27,43 @@
   {% empty %}
   <p>No blog yet!</p>
 {% endfor %}
+{% if is_paginated %}
+<nav aria-label="Page navigation" style="text-align: center">
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+    <li>
+      <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    {% else %}
+    <li class="disabled">
+      <span>
+        <span aria-hidden="true">&laquo;</span>
+      </span>
+    </li>
+    {% endif %}
+    {% for i in pre_list %}
+        <li><a href="?page={{ i }}">{{i}}</a></li>
+    {% endfor %}
+
+    <li><a href="#">{{ page_obj.number }}</a></li>
+    {% for i in next_list %}
+        <li><a href="?page={{ i }}">{{i}}</a></li>
+    {% endfor %}
+    {% if page_obj.has_next %}
+    <li>
+      <a href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+    {% else %}
+    <li class="disabled">
+      <span>
+        <span aria-hidden="true">&laquo;</span>
+      </span>
+    </li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}

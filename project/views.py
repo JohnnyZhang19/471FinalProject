@@ -6,16 +6,37 @@ from . import forms
 from . import models
 from comments .forms import CommentForm
 
+PERPAGE = 1
+PAGECOUNT = 5
+
+def cal_page(page_obj, paginator):
+    page_num = PAGECOUNT
+    half = page_num // 2
+    pre_list = [x for x in range(page_obj.number - half, page_obj.number) if x >= 1]
+    next_list = [x for x in range(page_obj.number + 1, page_obj.number + half + 1) if x <= paginator.num_pages]
+
+    return {'pre_list': pre_list, 'next_list': next_list}
+
 #ListView DetailView TemplateView
 class homepageView(ListView):
     model = models.Bloginfo
     template_name = 'project/homepage.html'
     context_object_name = "blog_list"
+    paginate_by = PERPAGE     # how many bolg shows in a page
+
+    def get_context_data(self, **kwargs):
+        context = super(homepageView, self).get_context_data()
+        page_data = cal_page(context.get('page_obj'), context.get('paginator'))
+        context.update(page_data)
+        return context
+
 
 class categoryView(ListView):
     model = models.Bloginfo
     template_name = 'project/category.html'
     context_object_name = "blog_list"
+    paginate_by = PERPAGE     # how many bolg shows in a page
+
 
     #not all blogs, but category, like sql: where category='xxx'
     def get_queryset(self):
@@ -26,12 +47,16 @@ class categoryView(ListView):
     def get_context_data(self, **kwargs):
         context = super(categoryView, self).get_context_data()
         context['category'] = get_object_or_404(models.Category, pk=self.kwargs.get('categoryid'))
+        page_data = cal_page(context.get('page_obj'), context.get('paginator'))
+        context.update(page_data)
         return context
 
 class tagView(ListView):
     model = models.Bloginfo
     template_name = 'project/tags.html'
     context_object_name = "blog_list"
+    paginate_by = PERPAGE     # how many bolg shows in a page
+
 
     #not all blogs, but category, like sql: where category='xxx'
     def get_queryset(self):
@@ -42,12 +67,16 @@ class tagView(ListView):
     def get_context_data(self, **kwargs):
         context = super(tagView, self).get_context_data()
         context['tags'] = get_object_or_404(models.Tag, pk=self.kwargs.get('tagid'))
+        page_data = cal_page(context.get('page_obj'), context.get('paginator'))
+        context.update(page_data)
         return context
 
 class authorPage(ListView):
     model = models.Bloginfo
     template_name = 'project/authorPage.html'
     context_object_name = "blog_list"
+    paginate_by = PERPAGE     # how many bolg shows in a page
+
 
     #not all blogs, but category, like sql: where category='xxx'
     def get_queryset(self):
@@ -58,6 +87,8 @@ class authorPage(ListView):
     def get_context_data(self, **kwargs):
         context = super(authorPage, self).get_context_data()
         context['author'] = get_object_or_404(models.RegisterUser, pk=self.kwargs.get('userid'))
+        page_data = cal_page(context.get('page_obj'), context.get('paginator'))
+        context.update(page_data)
         return context
 
 class blogDetail(DetailView):
