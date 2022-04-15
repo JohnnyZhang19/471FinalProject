@@ -60,7 +60,7 @@ ROOT_URLCONF = 'final_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -136,24 +136,15 @@ STATIC_URL = 'static/'
 # use the RegisterUser class in Django project
 AUTH_USER_MODEL = 'project.RegisterUser'
 
-# 媒体文件访问url映射
 MEDIA_URL = "/media/"
-# 媒体文件实际存放路径 blog_demo/media/
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # ckeditor info
-# 文件上传的url 与MEDIA_ROOT组合成 /media/uploads/
 CKEDITOR_UPLOAD_PATH = "uploads/"
-# 图片处理、生成缩略图是使用的引擎，pillow
 CKEDITOR_IMAGE_BACKEND = 'pillow'
-# 以下内容非必选
-# 在编辑器里浏览上传图片时，图片会以路径分组、以日期排序
 CKEDITOR_BROWSE_SHOW_DIRS = True
-# 禁用非图片文件上传
 CKEDITOR_ALLOW_NONIMAGE_FILES = False
-# 限制用户浏览图片的权限，只能浏览自己上传的图片
 CKEDITOR_RESTRICT_BY_USER = True
-# 定义ckeditor，使用的按钮等
 CKEDITOR_CONFIGS = {
     'default': {
         'language': 'zh-cn',

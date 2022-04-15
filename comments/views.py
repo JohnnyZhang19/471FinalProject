@@ -5,7 +5,7 @@ from .forms import CommentForm
 
 
 def do_comments(request, blogid):
-    blog = get_object_or_404(Bloginfo, pk=blogid)
+    project = get_object_or_404(Bloginfo, pk=blogid)
 
     if request.method == 'POST':
         formobj = CommentForm(request.POST)
@@ -14,17 +14,17 @@ def do_comments(request, blogid):
             comment = formobj.save(commit=False)
             comment.name = request.user.nickname
             comment.email = request.user.email
-            comment.blog = blog
+            comment.blog = project
 
             #commit to database
             comment.save()
 
-            return redirect(blog)
+            return redirect(project)
         else:
             context = {
-                "project": blog,
+                "project": project,
                 'form': formobj,
             }
             return render(request, 'project/blogDetail.html', context=context)
     else:
-        return redirect(blog)
+        return redirect(project)

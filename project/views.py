@@ -7,7 +7,7 @@ from . import forms
 from . import models
 from comments .forms import CommentForm
 
-PERPAGE = 1
+PERPAGE = 5
 PAGECOUNT = 5
 
 def cal_page(page_obj, paginator):
@@ -36,7 +36,7 @@ class categoryView(ListView):
     model = models.Bloginfo
     template_name = 'project/category.html'
     context_object_name = "blog_list"
-    paginate_by = PERPAGE     # how many bolg shows in a page
+    paginate_by = PERPAGE     # how many blog shows in a page
 
 
     #not all blogs, but category, like sql: where category='xxx'

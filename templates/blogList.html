@@ -1,13 +1,13 @@
 {% for blog in blog_list %}
   <div class="media">
-    {% if not author %}
-    <div class="media-left">
-      <a href="{% url 'project:authorPage' blog.author.id %}">
-        <img class="media-object img-circle" src="/media/{{ blog.author.profile_photo }}" alt="click to blogger's page"
-        style="width: 80px;height: 80px;">
-      </a>
-    </div>
-    {% endif %}
+<!--    {% if not author %}-->
+<!--    <div class="media-left">-->
+<!--      <a href="{% url 'project:authorPage' blog.author.id %}">-->
+<!--        <img class="media-object img-circle" src="/media/{{ blog.author.profile_photo }}" alt="click to blogger's page"-->
+<!--        style="width: 80px;height: 80px;">-->
+<!--      </a>-->
+<!--    </div>-->
+<!--    {% endif %}-->
     <div class="media-body">
       <h4 class="media-heading"><a href="{% url 'project:blogDetail' blog.id %}"> {{ blog.title }}</a></h4>
       <p>{{ blog.excerpt|safe }}</p>

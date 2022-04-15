@@ -115,12 +115,11 @@
         <div style="margin-top:15px;text-align:center;"> + 5 pounds&nbsp;&copy;&nbsp;</div>
     </nav>
     <script>
-        // 找到头像的input标签绑定change事件
         $("#id_profile_photo").change(function () {
-            var filerd = new FileReader(); //  创建一个读取文件的对象
-            filerd.readAsDataURL(this.files[0]); // 读取你选中的那个文件
+            var filerd = new FileReader();
+            filerd.readAsDataURL(this.files[0]);
             filerd.onload = function () {
-                $("#profile_photo").attr("src",  filerd.result);// 2. 把图片加载到img标签中
+                $("#profile_photo").attr("src",  filerd.result);
             };
         });
     </script>

@@ -32,10 +32,9 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li class="active"><a href="/">Homepage<span class="sr-only">(current)</span></a></li>
-          <li><a href="#">recommend blog</a></li>
-          {% if request.user.username %}
-          <li><a href="{% url 'project:authorPage' request.user.id %}">My Blog</a></li>
-          {% endif %}
+<!--          {% if request.user.username %}-->
+<!--          <li><a href="{% url 'project:authorPage' request.user.id %}">My Blog</a></li>-->
+<!--          {% endif %}-->
         </ul>
         <form class="navbar-form navbar-left" method="get" action="{% url 'haystack_search' %}">
           <div class="form-group">
@@ -45,19 +44,17 @@
         </form >
         <ul class="nav navbar-nav navbar-right">
           {% if request.user.username %}
-          <li><a href="{% url 'project:authorPage' request.user.id %}">{{ request.user.username }}</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-               aria-expanded="false">my account<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="{% url 'project:authorPage' request.user.id %}">my blogs</a></li>
-              <li><a href="#">my collections</a></li>
-              <li><a href="#">personal information</a></li>
-              <li><a href="#">change password</a></li>
-              <li role="separator" class="divider"></li>
-              <li><a href="/logout/">logout</a></li>
-            </ul>
-          </li>
+          <li><a href="#">{{ request.user.username }}</a></li>
+          <li><a href="/logout/">logout</a></li>
+<!--          <li class="dropdown">-->
+<!--            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"-->
+<!--               aria-expanded="false">my account<span class="caret"></span></a>-->
+<!--            <ul class="dropdown-menu">-->
+<!--              <li><a href="{% url 'project:authorPage' request.user.id %}">my blogs</a></li>-->
+<!--              <li role="separator" class="divider"></li>-->
+<!--              <li><a href="/logout/">logout</a></li>-->
+<!--            </ul>-->
+<!--          </li>-->
           {% else %}
               <li><a href="{% url 'project:login' %}">login</a></li>
               <li><a href="{% url 'project:register' %}">register</a></li>
@@ -82,7 +79,7 @@
               <img src="/media/{{ author.profile_photo }}" alt="{{author.nicknage }}"
                    style="width: 80px; height: 80px;" class="img-circle"/>
               <h4>{{ author.nickname }}</h4>
-              <div>Blog(11) following(88) follower(100)</div>
+<!--              <div>Blog(11) following(88) follower(100)</div>-->
             </div>
           </div>
           {% endif %}
